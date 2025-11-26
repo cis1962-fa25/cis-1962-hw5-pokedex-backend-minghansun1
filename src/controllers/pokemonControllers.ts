@@ -37,7 +37,7 @@ async function getPokemonByNameHelper(name: string): Promise<Pokemon> {
         moves: await Promise.all(pokemonData.moves.map(async move => {
             const moveData = await P.getMoveByName(move.move.name);
             const moveResponse: PokemonMove = {
-                name: dashToTitleCaseWithSpace(move.move.name),
+                name: moveData.names.find(n => n.language.name === 'en')?.name || dashToTitleCaseWithSpace(moveData.name),
                 power: moveData.power || undefined,
                 type: {
                     name: moveData.type.name.toUpperCase(),
